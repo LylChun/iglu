@@ -1,8 +1,14 @@
-pandoc: '2.2'
-pkgdown: 1.5.1
+pandoc: 2.7.3
+pkgdown: 2.0.2
 pkgdown_sha: ~
 articles:
+  AGP_and_Episodes: AGP_and_Episodes.html
+  MAGE: MAGE.html
   iglu: iglu.html
+  lasagna_plots: lasagna_plots.html
   metrics_list: metrics_list.html
-last_built: 2020-06-30T21:58Z
+last_built: 2022-02-28T06:17Z
+urls:
+  reference: https://irinagain.github.io/iglu/reference
+  article: https://irinagain.github.io/iglu/articles
 
