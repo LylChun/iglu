@@ -12,7 +12,7 @@ for use with the rest of the iglu package. Assumes all data will be readable wit
     
     <a class="navbar-brand me-2" href="../index.html">iglu</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">3.4.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">3.5.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,7 +63,8 @@ for use with the rest of the <code>iglu</code> package. Assumes all data will be
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">read_raw_data</span><span class="op">(</span></span>
 <span>  <span class="va">filename</span>,</span>
 <span>  sensor <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"dexcom"</span>, <span class="st">"libre"</span>, <span class="st">"librepro"</span>, <span class="st">"asc"</span>, <span class="st">"ipro"</span><span class="op">)</span>,</span>
-<span>  id <span class="op">=</span> <span class="st">"filename"</span></span>
+<span>  id <span class="op">=</span> <span class="st">"filename"</span>,</span>
+<span>  tz <span class="op">=</span> <span class="st">""</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -82,8 +83,13 @@ Must be one of "dexcom", "libre", "librepro", "asc", or "ipro".</p></dd>
 <dd><p>String indicating subject id. Defaults to "filename".
 A value of "read" will cause the program to attempt to read the subject id from the file. A value of "filename" will cause the
 program to use the basename of the filename (i.e. filename without any directory information) with .csv removed, as subject id.
-A value of "default" will cause the program to use whatever the default value associated with the sensor is.
-The asc reader currently does not support id="read"</p></dd>
+A value of "default" will cause the program to use whichever of "read" or "filename" that is default for that specific sensor.
+Any other string will be treated as the unique id for the entire file.</p>
+<p>Note the asc reader currently does not support id="read"</p></dd>
+
+
+<dt>tz</dt>
+<dd><p>A character string specifying the time zone to be used. System-specific (see <code><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></code>), but " " is the current time zone, and "GMT" is UTC (Universal Time, Coordinated). Invalid values are most commonly treated as UTC, on some platforms with a warning.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -118,7 +124,7 @@ Heavily derived from the readers avaiable in the cgmanalysis package's cleandata
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by Steve Broll, David Buchanan, Elizabeth Chun, John Muschelli, Nathaniel Fernandes, Jung Hoon Seo, Johnathan Shih, Jacek Urbanek, John Schwenck, Irina Gaynanova.</p>
+  <p></p><p>Developed by Elizabeth Chun, Steve Broll, David Buchanan, John Muschelli, Nathaniel Fernandes, Jung Hoon Seo, Johnathan Shih, Jacek Urbanek, John Schwenck, Irina Gaynanova.</p>
 </div>
 
 <div class="pkgdown-footer-right">
