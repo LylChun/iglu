@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">iglu</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">3.5.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">4.0.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,7 +58,14 @@
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
 </form>
 
-      <ul class="navbar-nav"></ul>
+      <ul class="navbar-nav">
+<li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/irinagain/iglu/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
 
     
@@ -76,7 +83,7 @@ Fernandes, Nhan Nguyen, Elizabeth Chun, Naresh Punjabi, Irina
 Gaynanova</h4>
             
       
-      
+      <small class="dont-index">Source: <a href="https://github.com/irinagain/iglu/blob/HEAD/vignettes/MAGE.Rmd" class="external-link"><code>vignettes/MAGE.Rmd</code></a></small>
       <div class="d-none name"><code>MAGE.Rmd</code></div>
     </div>
 
@@ -443,11 +450,11 @@ adjusted by the user.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># Rowwise: </span></span></span>
 <span><span class="co">#&gt;   id         MAGE</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Subject 1  70.4</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Subject 2 113. </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Subject 3 113. </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Subject 4  71.5</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Subject 5 143.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Subject 1  72.4</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Subject 2 118. </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Subject 3 116. </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Subject 4  70.9</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Subject 5 142.</span></span>
 <span></span>
 <span><span class="co"># Adjust default window sizes in mage calculation</span></span>
 <span><span class="fu"><a href="../reference/mage.html">mage</a></span><span class="op">(</span><span class="va">example_data_5_subject</span>, short_ma <span class="op">=</span> <span class="fl">3</span>, long_ma <span class="op">=</span> <span class="fl">30</span><span class="op">)</span></span>
@@ -455,11 +462,11 @@ adjusted by the user.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># Rowwise: </span></span></span>
 <span><span class="co">#&gt;   id         MAGE</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Subject 1  71.0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Subject 2 113. </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Subject 3 113. </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Subject 4  71.5</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Subject 5 143.</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Subject 1  72.3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Subject 2 118. </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Subject 3 116. </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Subject 4  70.9</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Subject 5 142.</span></span></code></pre></div>
 <p>In addition to providing a numerical MAGE value, the software allows
 the creation of glucose trace plots that highlight the selected peaks
 and nadirs used for MAGE calculation.</p>

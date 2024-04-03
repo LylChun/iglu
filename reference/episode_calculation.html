@@ -12,7 +12,7 @@ and optionally returns data with episode label columns added"><!-- mathjax --><s
     
     <a class="navbar-brand me-2" href="../index.html">iglu</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">3.5.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">4.0.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,7 +41,13 @@ and optionally returns data with episode label columns added"><!-- mathjax --><s
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
-      <ul class="navbar-nav"></ul></div>
+      <ul class="navbar-nav"><li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/irinagain/iglu/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul></div>
 
     
   </div>
@@ -49,7 +55,7 @@ and optionally returns data with episode label columns added"><!-- mathjax --><s
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Calculates Hypo/Hyperglycemic episodes with summary statistics</h1>
-      
+      <small class="dont-index">Source: <a href="https://github.com/irinagain/iglu/blob/HEAD/R/episode_calculation.R" class="external-link"><code>R/episode_calculation.R</code></a></small>
       <div class="d-none name"><code>episode_calculation.Rd</code></div>
     </div>
 
@@ -78,7 +84,7 @@ and optionally returns data with episode label columns added</p>
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>data</dt>
-<dd><p>DataFrame object with column names "id", "time", and "gl". Should only be data for 1 subject. In case multiple subject ids are detected, the warning is produced and only 1st subject is used.</p></dd>
+<dd><p>DataFrame object with column names "id", "time", and "gl". Should only be data for 1 subject. In case multiple subject ids are detected, a warning is produced and only 1st subject is used.</p></dd>
 
 
 <dt>lv1_hypo</dt>
@@ -150,6 +156,9 @@ Defaults to FALSE which means only episode summary statistics will be returned</
 <dt>avg_ep_gl</dt>
 <dd><p>Average glucose in the episode in mg/dL</p></dd>
 
+<dt>total_episodes</dt>
+<dd><p>Total number of episodes in the subject's glucose trace</p></dd>
+
 
 </dl><p>If return_data is TRUE, returns a list where the first entry is the episode summary dataframe
 (see above) and the second entry is the input data with episode labels added. Note
@@ -174,8 +183,11 @@ Note the labels are *not* unique by subject only unique by segment</p></dd>
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>We follow the definition of episodes given in the 2023 consensus by Battelino et al.
 Note we have classified lv2 as a subset of lv1 since we find the consensus to be
-slightly ambiguous. For lv1 exclusive of lv2, please see lv1_excl which summarise
-episodes that were exclusively lv1 and did not cross the lv2 threshold.</p>
+slightly ambiguous. For lv1 exclusive of lv2, please see lv1_excl which summarises
+episodes that were exclusively lv1 and did not cross the lv2 threshold. Also note,
+hypo extended refers to episodes that are &gt;120 consecutive minutes below lv1 hypo
+and ends with at least 15 minutes of normoglycemia. For more details on each category
+please see the reference below (Battelino et al 2023).</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -197,19 +209,19 @@ trials: an international consensus statement
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">episode_calculation</span><span class="op">(</span><span class="va">example_data_5_subject</span>, lv1_hypo<span class="op">=</span><span class="fl">100</span>, lv1_hyper<span class="op">=</span> <span class="fl">120</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 35 × 6</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    id        type  level    avg_ep_per_day avg_ep_duration avg_ep_gl</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Subject 1 hypo  lv1               2.88             130.      92.9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Subject 1 hypo  lv2               0                  0       <span style="color: #BB0000;">NA</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Subject 1 hypo  extended          1.08             243.      92.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Subject 1 hyper lv1               3.42             170.     143. </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Subject 1 hyper lv2               0.180             30      264. </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Subject 1 hypo  lv1_excl          2.88             130.      92.9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Subject 1 hyper lv1_excl          3.33             166.     141. </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Subject 2 hypo  lv1               0.102             50       94.6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Subject 2 hypo  lv2               0                  0       <span style="color: #BB0000;">NA</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Subject 2 hypo  extended          0                  0       <span style="color: #BB0000;">NA</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 35 × 7</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    id        type  level avg_ep_per_day avg_ep_duration avg_ep_gl total_episodes</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Subject 1 hypo  lv1            2.88             130.      92.9             32</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Subject 1 hypo  lv2            0                  0       <span style="color: #BB0000;">NA</span>                0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Subject 1 hypo  exte…          1.08             243.      92.1             12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Subject 1 hyper lv1            3.42             170.     143.              38</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Subject 1 hyper lv2            0.180             30      264.               2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Subject 1 hypo  lv1_…          2.88             130.      92.9             32</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Subject 1 hyper lv1_…          3.33             166.     141.              37</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Subject 2 hypo  lv1            0.102             50       94.6              1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Subject 2 hypo  lv2            0                  0       <span style="color: #BB0000;">NA</span>                0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Subject 2 hypo  exte…          0                  0       <span style="color: #BB0000;">NA</span>                0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 25 more rows</span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
